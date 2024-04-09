@@ -1,17 +1,20 @@
-#https://leetcode.com/problems/valid-parentheses/description/
-def valid_parentheses(in_str):
-    parentheses_map = {']': '[', '}': '{', ')': '('}
-    stack = []
-    for char in in_str:
-        if char in parentheses_map.values():
-            stack.append(char)
-        elif char in parentheses_map.keys():
-            if parentheses_map[char] in stack:
-                stack.pop()
-            else:
-                return False
+# https://leetcode.com/problems/valid-parentheses/?envType=study-plan-v2&envId=top-interview-150
 
-    return True if len(stack) == 0 else False
+class Solution:
+    def isValid(self, s: str) -> bool:
+        parentheses_map = {']': '[', '}': '{', ')': '('}
+        stack = []
+        for char in s:
+            if char in parentheses_map.values():
+                stack.append(char)
+            elif char in parentheses_map.keys():
+                if len(stack) > 0 and parentheses_map[char] == stack[len(stack) - 1]:
+                    stack.pop()
+                else:
+                    return False
+
+        return True if len(stack) == 0 else False
 
 
-print(valid_parentheses("([aasc()]b)"))
+a = Solution()
+print(a.isValid(']'))
